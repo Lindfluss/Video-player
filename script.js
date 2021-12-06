@@ -81,17 +81,15 @@ video.addEventListener('timeupdate', () => {updateProgressTime(); })
 progress.addEventListener('input', () => {setVideoProgress(); })
 
 // Громкость
-volume.addEventListener('input', (e) => {video.volume = e.target.value;})
+volume.addEventListener('input', (e) => {video.volume = e.target.value;
+    if(video.volume === 0 && !video.muted){
+        video.muted = true;
+       mute.classList.add('muted');
+    } else if (video.volume > 0 && video.muted){
+        video.muted = false;
+       mute.classList.remove('muted');
+   }})
 mute.addEventListener('click', () => {soundToggle(); })
-
-// Неудачная попытка менять значёк громкости при установки уровня громкости на 0
-video.addEventListener('volumechange', () => {
-   if(video.volume === 0 & !video.muted){
-       soundToggle()
-   } else if (video.volume > 0 && video.muted){
-       soundToggle()
-   }
-})
 
 // Фуллскрин
 fullscreen.addEventListener('click', function () {
